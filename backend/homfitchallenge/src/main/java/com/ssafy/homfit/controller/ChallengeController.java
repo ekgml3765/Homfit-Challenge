@@ -34,9 +34,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.ssafy.homfit.api.ChallengeRepository;
 import com.ssafy.homfit.api.TodayChallengeRepository;
@@ -362,8 +360,7 @@ public class ChallengeController {
 	/** 챌린지 등록 */
 	@PostMapping
 	@Transactional
-	public ResponseEntity<String> insertChallenge(@RequestPart("challenge") Challenge challenge, @RequestPart("GoodImgFile") MultipartFile GoodImgFile,
-			 @RequestPart("BadImgFile") MultipartFile BadImgFile, @RequestPart("ChallengeImgFile") MultipartFile ChallengeImgFile) {
+	public ResponseEntity<String> insertChallenge(@ModelAttribute Challenge challenge) {
 
 		HttpStatus status = HttpStatus.OK;
 		String result = FAIL;
@@ -389,14 +386,14 @@ public class ChallengeController {
 				challenge.setCertification(cert_day);
 
 				// 1. 사진세팅- 사진 있을 경우만 url 저장
-				if ( ChallengeImgFile!= null) {
-					challenge.setChallenge_img(s3service.uploadImg(ChallengeImgFile));
+				if (challenge.getChallengeImgFile() != null) {
+					challenge.setChallenge_img(s3service.uploadImg(challenge.getChallengeImgFile()));
 				}
-				if ( GoodImgFile!= null) {
-					challenge.setGood_img(s3service.uploadImg(GoodImgFile));
+				if (challenge.getGoodImgFile() != null) {
+					challenge.setGood_img(s3service.uploadImg(challenge.getGoodImgFile()));
 				}
-				if (BadImgFile != null) {
-					challenge.setBad_img(s3service.uploadImg(BadImgFile));
+				if (challenge.getBadImgFile() != null) {
+					challenge.setBad_img(s3service.uploadImg(challenge.getBadImgFile()));
 				}
 
 				challengeService.writeChallenge(challenge); // 입력
@@ -469,15 +466,15 @@ public class ChallengeController {
 
 		try {
 			// 1. 사진세팅 - 사진 있을 경우만 url 저장
-//			if (challenge.getChallengeImgFile() != null) {
-//				challenge.setChallenge_img(s3service.uploadImg(challenge.getChallengeImgFile()));
-//			}
-//			if (challenge.getGoodImgFile() != null) {
-//				challenge.setGood_img(s3service.uploadImg(challenge.getGoodImgFile()));
-//			}
-//			if (challenge.getBadImgFile() != null) {
-//				challenge.setBad_img(s3service.uploadImg(challenge.getBadImgFile()));
-//			}
+			if (challenge.getChallengeImgFile() != null) {
+				challenge.setChallenge_img(s3service.uploadImg(challenge.getChallengeImgFile()));
+			}
+			if (challenge.getGoodImgFile() != null) {
+				challenge.setGood_img(s3service.uploadImg(challenge.getGoodImgFile()));
+			}
+			if (challenge.getBadImgFile() != null) {
+				challenge.setBad_img(s3service.uploadImg(challenge.getBadImgFile()));
+			}
 
 			if (challengeService.updateChallenge(challenge)) {
 

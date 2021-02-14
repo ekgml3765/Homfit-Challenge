@@ -38,6 +38,9 @@ public class Challenge implements Serializable{
 	private int certification; //인증갯수
 	private int average_rate; //평균 달성률
 	
+	private MultipartFile goodImgFile;
+	private MultipartFile badImgFile;
+	private MultipartFile challengeImgFile;
 	
 	//요일리스트 스트링
 	private String daylist_string;
@@ -209,6 +212,24 @@ public class Challenge implements Serializable{
 		this.average_rate = average_rate;
 	}
 	
+	public MultipartFile getGoodImgFile() {
+		return goodImgFile;
+	}
+	public void setGoodImgFile(MultipartFile goodImgFile) {
+		this.goodImgFile = goodImgFile;
+	}
+	public MultipartFile getBadImgFile() {
+		return badImgFile;
+	}
+	public void setBadImgFile(MultipartFile badImgFile) {
+		this.badImgFile = badImgFile;
+	}
+	public MultipartFile getChallengeImgFile() {
+		return challengeImgFile;
+	}
+	public void setChallengeImgFile(MultipartFile challengeImgFile) {
+		this.challengeImgFile = challengeImgFile;
+	}
 	public String getBodylist_string() {
 		return bodylist_string;
 	}
@@ -224,11 +245,11 @@ public class Challenge implements Serializable{
 				+ start_date + ", end_date=" + end_date + ", make_date=" + make_date + ", make_uid=" + make_uid
 				+ ", fit_id=" + fit_id + ", check_date=" + check_date + ", period=" + period + ", nick_name="
 				+ nick_name + ", people=" + people + ", kind=" + kind + ", certification=" + certification
-				+ ", average_rate=" + average_rate + ", daylist_string=" + daylist_string + ", bodylist_string="
+				+ ", average_rate=" + average_rate + ", goodImgFile=" + goodImgFile + ", badImgFile=" + badImgFile
+				+ ", challengeImgFile=" + challengeImgFile + ", daylist_string=" + daylist_string + ", bodylist_string="
 				+ bodylist_string + ", dayList=" + Arrays.toString(dayList) + ", tagList=" + Arrays.toString(tagList)
 				+ ", bodyList=" + Arrays.toString(bodyList) + "]";
 	}
-
 	
 	
 	
